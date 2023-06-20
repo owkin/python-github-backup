@@ -564,7 +564,7 @@ def retrieve_data_gen(args, template, query_args=None, single_request=False):
             log_warning("JSON decode error detected")
             read_error = True
         except TimeoutError:
-            log_warning("Tiemout error detected")
+            log_warning("Timeout error detected")
             read_error = True
         else:
             read_error = False
@@ -580,7 +580,7 @@ def retrieve_data_gen(args, template, query_args=None, single_request=False):
             time.sleep(args.throttle_pause)
 
         retries = 0
-        while retries < 3 and (status_code == 502 or read_error):
+        while retries < 10 and (status_code == 502 or read_error):
             log_warning("API request failed. Retrying in 5 seconds")
             retries += 1
             time.sleep(5)
@@ -600,7 +600,7 @@ def retrieve_data_gen(args, template, query_args=None, single_request=False):
                 log_warning("JSON decode error detected")
                 read_error = True
             except TimeoutError:
-                log_warning("Tiemout error detected")
+                log_warning("Timeout error detected")
                 read_error = True
 
         if status_code != 200:
@@ -640,7 +640,7 @@ def get_query_args(query_args=None):
 
 
 def _get_response(request, auth, template):
-    retry_timeout = 3
+    retry_timeout = 10
     errors = []
     # We'll make requests in a loop so we can
     # delay and retry in the case of rate-limiting
