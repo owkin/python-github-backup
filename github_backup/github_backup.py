@@ -543,7 +543,7 @@ def get_github_repo_url(args, repository):
 def retrieve_data_gen(args, template, query_args=None, single_request=False):
     auth = get_auth(args, encode=not args.as_app)
     query_args = get_query_args(query_args)
-    per_page = 200
+    per_page = 100
     page = 0
 
     while True:
