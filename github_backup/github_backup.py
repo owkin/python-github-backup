@@ -1276,7 +1276,7 @@ def fetch_repository(
         if lfs_clone:
             git_command = ["git", "lfs", "fetch", "--all", "--prune"]
         else:
-            git_command = ["git", "fetch", "--all", "--force", "--tags", "--prune"]
+            git_command = ["git", "pull", "--prune"]
         if no_prune:
             git_command.pop()
         logging_subprocess(git_command, None, cwd=local_dir)
